@@ -1,0 +1,25 @@
+// for golang and vs code
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+__debug_bin*
+/_test
+/vendor/
+/Godeps/
+/.glide/
+/.idea/
+/.vscode/
+/.vs/
+/.history/
+/.sourcemaps/
+/.test/
+/.cache/
+/.tmp/
+/.bak/
+/.DS_Store
+
+# Visual Studio Code
+.vscode/
