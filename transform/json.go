@@ -2,6 +2,7 @@ package transform
 
 import (
 	"errors"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -18,7 +19,7 @@ func ParseInput(input any) (any, error) {
 	if !ok {
 		return nil, errInvalidData
 	}
-	result := make(map[string]any, len(data))
+	unsortedResult := make(map[string]any, len(data))
 	for k, v := range data {
 		if len(k) == 0 {
 			continue
@@ -31,12 +32,24 @@ func ParseInput(input any) (any, error) {
 		if err != nil {
 			continue
 		}
-		result[k] = newVal
+		unsortedResult[k] = newVal
 	}
-	if len(result) == 0 {
+	if len(unsortedResult) == 0 {
 		return nil, errEmptyData
 	}
-	return result, nil
+	var sortedKeys []string
+	for k := range unsortedResult {
+		sortedKeys = append(sortedKeys, k)
+	}
+	sort.Strings(sortedKeys)
+
+	// Create a new result map with sorted keys
+	sortedResult := make(map[string]any, len(unsortedResult))
+	for _, k := range sortedKeys {
+		sortedResult[k] = unsortedResult[k]
+	}
+
+	return sortedResult, nil
 }
 	
 // toString validates and transforms to a string.
